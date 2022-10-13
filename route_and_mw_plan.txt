@@ -1,0 +1,238 @@
+##############
+##### MW #####
+##############
+
+-- BASE --
+
+renderMW
+    kirenderelés
+
+redirectMW
+    átirányít a paraméterként kapott oldalra
+
+
+-- LOGIN AND AUTH --
+
+authMW
+    if(user be van lépve (lehet admin is!!))
+        beállítja a felhasználónak megfelelő role-t
+        next()
+    else
+        átirányít / - re
+
+userAuthMW
+    if(user be van lépve (nem lehet admin!!))
+        next()
+    else
+        átirányít / - re
+
+
+adminAuthMW
+    if(admin be van lépve)
+        next()
+    else if(user be van lépve)
+        átirányít /competition - re
+    else
+        átirányít / - re
+
+
+inverseAuthMW
+    if(user be van lépve (lehet admin is!!))
+        átirányít /competition - re
+    else
+        next()
+
+regMW
+    if(nincs POST adat)
+        next()
+    if(register gombot nyomták meg)
+        if(sikeres)
+            játékos regisztrálása formbeli értékek alapján
+            átirányít /competition - re
+        else
+            next() hibaüzenettel
+    else
+        next()  
+
+loginMW
+    if(nincs POST adat)
+        next()
+    if(login gombot nyomták meg)
+        2 form field: username, password
+        adatbázisban megkeresi a bejövő username password kombinációt
+        if(sikeres)
+            sessionbe eltárol
+            átirányít /competition - re
+        else
+            next() hibaüzenettel
+    else
+        next()
+
+-- PLAYERS --
+
+editPlayerMW
+    if(nincs POST adat)
+        next()
+    if(player_id létezik && form adatok validok)
+        player adatainak módosítása
+        átirányít /players - re
+    else
+        next() hibaüzenettel
+
+deletePlayerMW
+    if(nincs POST adat)
+        next()
+    if(player_id létezik)
+        player törlése
+        átirányít /players - re
+    else
+        next() hibaüzenettel
+
+-- SCORE --
+
+addscoreMW
+    if(nincs POST adat)
+        next()
+    else if(form info nem valid)
+        next() hibaüzenettel
+    else if(a kijelölt flipperre már van pont beírva)
+        next() hibaüzenettel
+    else
+        score felvétele adatbázisba
+        sikeres üzenet
+        next()
+
+editscoreMW
+    if(nincs POST adat)
+        next()
+    else if(form info nem valid)
+        next() hibaüzenettel
+    else if(gép és játékos kombinációja nem létezik)
+        next() hibaüzenettel
+    else if(pontszám nem létezik)
+        next() hibaüzenettel
+    else
+        score frissítése adatbázisban
+        átirányít /competition - re
+
+deletescoreMW
+    if(nincs POST adat)
+        next()
+    else if(gép és játékos kombinációja nem létezik)
+        next() hibaüzenettel
+    else if(pontszám nem létezik)
+        next() hibaüzenettel
+    else
+        score törlése adatbázisból
+        átirányít /competition - re
+
+
+-- MACHINES --
+
+addMachineMW
+    if(nincs POST adat)
+        next()
+    machine beszúrása adatbázisba
+    next()
+
+editMachineMW
+    if(nincs POST adat)
+        next()
+    else if(form nem valid)
+        next() hibaüzenettel
+    else if(machine nem létezik)
+        next() hibaüzenettel
+    else
+        machine frissítése adatbázisban
+        átirányít /machines - ra
+
+deleteMachineMW
+    if(nincs POST adat)
+        next()
+    else if(machine nem létezik)
+        next() hibaüzenettel
+    else
+        machine törlése adatbázisból
+        átirányít /machines - ra
+
+#################
+##### ROUTE #####
+#################
+
+-- LOGIN --
+
+(GET|POST)  /                                       Login/Register screen
+    inverseAuthMW()
+    regMW()
+    loginMW()
+    renderMW(index.html)
+
+GET         /logout                                 Logout (redirect to /competition)
+    authMW()
+
+
+
+-- COMPETITION --
+(GET|POST)  /competition                            Competition screen
+    authMW()
+    renderMW()  <-- authMW-től kapott role függvényében (gombok elrejtése stb.)
+
+
+
+
+-- MACHINES --
+(GET|POST)  /machines                               Machines screen
+    adminAuthMW()
+    renderMW()
+
+(GET|POST)  /machines/new                           Create new machine screen
+    adminAuthMW()
+    addMachineMW()
+    renderMW()
+
+(GET|POST)  /machine/edit/:machine_id               Edit machine
+    adminAuthMW()
+    editMachineMW()
+    renderMW()
+
+(GET|POST)  /machine/delete/:machine_id             Delete machine
+    adminAuthMW()
+    deleteMachineMW()
+    renderMW()
+
+-- PLAYERS --
+
+(GET|POST)  /players                                Players screen
+    adminAuthMW()
+    renderMW()
+
+(GET|POST)  /player/edit/:player_id                 Edit player
+    adminAuthMW()
+    editPlayerMW()
+    renderMW()
+
+
+(GET|POST)  /player/delete/:player_id               Delete player
+    adminAuthMW()
+    deletePlayerMW()
+    renderMW()
+
+
+-- SCORE --
+
+(GET|POST)  /addscore                               Add Score
+    userAuthMW()
+    addscoreMW()
+    renderMW()
+
+
+(GET|POST)  /score/edit/:machine_id/:player_id      Edit Score
+    adminAuthMW()
+    editscoreMW()
+    renderMW()
+
+(GET|POST)  /score/delete/:machine_id/:player_id    Delete Score
+    adminAuthMW()
+    deletescoreMW()
+    renderMW()
+

@@ -1,19 +1,19 @@
-const authMW = require('../middleware/auth/adminAuthMW');
+const adminAuthMW = require('../middleware/auth/adminAuthMW');
 const authMW = require('../middleware/auth/authMW');
-const authMW = require('../middleware/auth/inverseAuthMW');
-const authMW = require('../middleware/auth/loginMW');
-const authMW = require('../middleware/auth/regMW');
-const authMW = require('../middleware/auth/userAuthMW');
-const authMW = require('../middleware/machines/addMachineMW');
-const authMW = require('../middleware/machines/deleteMachineMW');
-const authMW = require('../middleware/machines/editMachineMW');
-const authMW = require('../middleware/players/deletePlayerMW');
-const authMW = require('../middleware/players/editPlayerMW');
-const authMW = require('../middleware/score/addscoreMW');
-const authMW = require('../middleware/score/deletescoreMW');
-const authMW = require('../middleware/score/editscoreMW');
-const authMW = require('../middleware/redirectMW');
-const authMW = require('../middleware/renderMW');
+const inverseAuthMW = require('../middleware/auth/inverseAuthMW');
+const loginMW = require('../middleware/auth/loginMW');
+const regMW = require('../middleware/auth/regMW');
+const userAuthMW = require('../middleware/auth/userAuthMW');
+const addMachineMW = require('../middleware/machines/addMachineMW');
+const deleteMachineMW = require('../middleware/machines/deleteMachineMW');
+const editMachineMW = require('../middleware/machines/editMachineMW');
+const deletePlayerMW = require('../middleware/players/deletePlayerMW');
+const editPlayerMW = require('../middleware/players/editPlayerMW');
+const addscoreMW = require('../middleware/score/addscoreMW');
+const deletescoreMW = require('../middleware/score/deletescoreMW');
+const editscoreMW = require('../middleware/score/editscoreMW');
+const redirectMW = require('../middleware/redirectMW');
+const renderMW = require('../middleware/renderMW');
 
 
 module.exports = function (app) {

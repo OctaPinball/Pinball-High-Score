@@ -15,9 +15,17 @@ const editscoreMW = require('../middleware/score/editscoreMW');
 const redirectMW = require('../middleware/redirectMW');
 const renderMW = require('../middleware/renderMW');
 
+const PlayerModel = require('../models/player');
+const MachineModel = require('../models/machine');
+const ScoreModel = require('../models/score');
+
 
 module.exports = function (app) {
-    const objRepo = {};
+    const objRepo = {
+        PlayerModel: PlayerModel,
+        MachineModel: MachineModel,
+        ScoreModel: ScoreModel
+    };
       
     
     //-- COMPETITION --

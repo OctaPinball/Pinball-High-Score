@@ -22,39 +22,41 @@ module.exports = function (objectrepository) {
     return function (req, res, next) {
     
         //not enough parameter
-        if ((typeof req.body === 'undefined') || (typeof req.body.username === 'undefined') ||
-        (typeof req.body.password === 'undefined') || (typeof req.body.name === 'undefined') || 
-        (typeof req.body.ifpaid === 'undefined') || (typeof req.body.birthdate === 'undefined') ) {
+        if ((typeof req.body === 'undefined') || (typeof req.body.reg_username === 'undefined') ||
+        (typeof req.body.reg_password === 'undefined') || (typeof req.body.reg_name === 'undefined') || 
+        (typeof req.body.reg_ifpaid === 'undefined') || (typeof req.body.reg_birthdate === 'undefined') ) {
         return next();
     }
 
     //lets find the user
-    UserModel.findOne({
-        username: req.body.username
+    PlayerModel.findOne({
+        username: req.body.reg_username
     }, function (err, result) {
 
         if ((err) || (result !== null)) {
-        res.tpl.error.push('Your username is already registered!');
+            res.locals.error = 'Your username is already registered! Use the log in form!';
         return next();
         }
 
-        if (req.body.username.length < 6) {
-        res.tpl.error.push('The username should be at least 6 characters!');
+        if (req.body.reg_username.length < 6) {
+            res.locals.error = 'Username must be at least 6 characters long!';
         return next();
         }
 
         //create user
-        var newUser = new UserModel();
-        newUser.name = req.body.name;
-        newUser.username = req.body.username;
-        newUser.password = req.body.password;
-        newUser.ifpaid = req.body.ifpaid;
-        newUser.birthdate = req.body.birthdate;
+        var newUser = new PlayerModel();
+        newUser.name = req.body.reg_name;
+        newUser.username = req.body.reg_username;
+        newUser.password = req.body.reg_password;
+        newUser.ifpaid = req.body.reg_ifpaid;
+        newUser.birthdate = req.body.reg_birthdate;
         newUser.save(function (err) {
-        //redirect to /competition
-        return res.redirect('/competition');
+
+            req.session.userid = newUser._id;
+            //redirect to /competition
+            return res.redirect('/competition');
         });
     });
-        next();
+        //next();
     };
 };

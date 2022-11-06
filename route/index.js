@@ -99,4 +99,8 @@ module.exports = function (app) {
     authMW(objRepo),
     redirectMW('/competition'));
     
+    app.get('/favicon.ico',(req, res)=>{
+        res.status(204);
+        res.end();
+    });
 }

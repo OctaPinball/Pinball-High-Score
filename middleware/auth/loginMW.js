@@ -33,13 +33,13 @@ module.exports = function (objectrepository) {
         username: req.body.username
     }, function (err, result) {
       if ((err) || (!result)) {
-        res.tpl.error.push('This username does not exist!');
+        res.locals.error = 'This username does not exist!';
         return next();
       }
 
       //check password
       if (result.password !== req.body.password) {
-        res.tpl.error.push('Wrong password!');
+        res.locals.error = 'Wrong password!';
         return next();
       }
 

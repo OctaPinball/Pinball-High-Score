@@ -5,8 +5,9 @@ const Player = db.model('Player', {
   name: String,
   username: String,
   password: String,
-  birthdate: String, //korrigálni kell
+  birthdate: Date,
   ifpa_id: Number,
+  admin_role: Boolean,
 });
 
 module.exports = Player;

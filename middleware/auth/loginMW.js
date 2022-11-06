@@ -23,14 +23,14 @@ module.exports = function (objectrepository) {
 
     return function (req, res, next) {
     //not enough input
-    if ((typeof req.body === 'undefined') || (typeof req.body.username === 'undefined') ||
-      (typeof req.body.password === 'undefined')){
+    if ((typeof req.body === 'undefined') || (typeof req.body.login_username === 'undefined') ||
+      (typeof req.body.login_password === 'undefined')){
       return next();
     }
 
     //get user
     PlayerModel.findOne({
-        username: req.body.username
+        username: req.body.login_username
     }, function (err, result) {
       if ((err) || (!result)) {
         res.locals.error = 'This username does not exist!';
@@ -38,7 +38,7 @@ module.exports = function (objectrepository) {
       }
 
       //check password
-      if (result.password !== req.body.password) {
+      if (result.password !== req.body.login_password) {
         res.locals.error = 'Wrong password!';
         return next();
       }

@@ -8,6 +8,10 @@ module.exports = function (objectrepository) {
         if (typeof req.session.adminid === 'undefined') {
             return res.redirect('/');
           }
+          else
+          {
+            res.locals.adminid = req.session.adminid;
+          }
         return next();
     };
 };

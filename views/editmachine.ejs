@@ -13,19 +13,19 @@
         <form method="post">
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-                <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="addon-wrapping" id="name" name="name" required>
+                <input type="text" class="form-control" placeholder="<%= machine.name %>" aria-label="Name" aria-describedby="addon-wrapping" id="name" name="name" required>
             </div>
             <div class="input-group flex-nowrap">
-                <input type="text" class="form-control" placeholder="Manufacturer" aria-label="Manufacturer" aria-describedby="addon-wrapping" id="manufacturer" name="manufacturer" required>
+                <input type="text" class="form-control" placeholder="<%= machine.manufacturer %>" aria-label="Manufacturer" aria-describedby="addon-wrapping" id="manufacturer" name="manufacturer" required>
                 <span class="input-group-text" id="inputGroup-sizing-default">Manufacturer</span>
             </div>
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="inputGroup-sizing-default">Production year</span>
-                <input type="number" class="form-control" placeholder="Year" aria-label="Year" aria-describedby="addon-wrapping" id="prodyear" name="prodyear" required>
+                <input type="number" class="form-control" placeholder="<%= machine.year %>" aria-label="Year" aria-describedby="addon-wrapping" id="prodyear" name="prodyear" required>
             </div>
             <br>
             <div>
-                <input type="submit" class="btn btn-outline-success" value="Add Machine" />
+                <input type="submit" class="btn btn-outline-success" value="Modify Machine" />
             </div>
         </form>
     </body>

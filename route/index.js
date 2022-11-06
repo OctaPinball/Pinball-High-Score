@@ -6,6 +6,8 @@ const logoutMW = require('../middleware/auth/logoutMW');
 const regMW = require('../middleware/auth/regMW');
 const userAuthMW = require('../middleware/auth/userAuthMW');
 const addMachineMW = require('../middleware/machines/addMachineMW');
+const getMachineMW = require('../middleware/machines/getMachineMW');
+const getMachinesMW = require('../middleware/machines/getMachinesMW');
 const deleteMachineMW = require('../middleware/machines/deleteMachineMW');
 const editMachineMW = require('../middleware/machines/editMachineMW');
 const deletePlayerMW = require('../middleware/players/deletePlayerMW');
@@ -36,31 +38,29 @@ module.exports = function (app) {
 
     
     //-- MACHINES --
-    app.use('/machines',
-    adminAuthMW(objRepo),
-    renderMW(objRepo, 'machines'));
-
     app.use('/machines/new',
     adminAuthMW(objRepo),
     addMachineMW(objRepo),
-    renderMW(objRepo, 'machines/new'));
+    renderMW(objRepo, 'addmachine'));
 
     app.use('/machines/edit/:machine_id',
     adminAuthMW(objRepo),
     editMachineMW(objRepo),
-    renderMW(objRepo, 'machines/edit/:machine_id'));
+    getMachineMW(objRepo),
+    renderMW(objRepo, 'editmachine'));
 
     app.use('/machines/delete/:machine_id',
     adminAuthMW(objRepo),
     deleteMachineMW(objRepo),
-    renderMW(objRepo, 'machines/delete/:machine_id'));
+    redirectMW('/machines'));
+
+    app.use('/machines',
+    adminAuthMW(objRepo),
+    getMachinesMW(objRepo),
+    renderMW(objRepo, 'machines'));
     
     
     //-- PLAYERS --
-    app.use('/players',
-    adminAuthMW(objRepo),
-    renderMW(objRepo, 'players'));
-
     app.use('/player/edit/:machine_id',
     adminAuthMW(objRepo),
     editPlayerMW(objRepo),
@@ -70,14 +70,13 @@ module.exports = function (app) {
     adminAuthMW(objRepo),
     deletePlayerMW(objRepo),
     renderMW(objRepo, 'player/delete/:machine_id'));    
+
+    app.use('/players',
+    adminAuthMW(objRepo),
+    renderMW(objRepo, 'players'));
     
 
-    //-- SCORE --
-    app.use('/addscore',
-    userAuthMW(objRepo),
-    addscoreMW(objRepo),
-    renderMW(objRepo, 'addscore'));
-    
+    //-- SCORE --   
     app.use('/score/edit/:machine_id/:player_id',
     adminAuthMW(objRepo),
     editscoreMW(objRepo),
@@ -87,6 +86,11 @@ module.exports = function (app) {
     adminAuthMW(objRepo),
     deletescoreMW(objRepo),
     renderMW(objRepo, 'score/delete/:machine_id/:player_id')); 
+
+    app.use('/addscore',
+    userAuthMW(objRepo),
+    addscoreMW(objRepo),
+    renderMW(objRepo, 'addscore'));
 
 
     //-- LOGIN --

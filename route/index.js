@@ -2,6 +2,7 @@ const adminAuthMW = require('../middleware/auth/adminAuthMW');
 const authMW = require('../middleware/auth/authMW');
 const inverseAuthMW = require('../middleware/auth/inverseAuthMW');
 const loginMW = require('../middleware/auth/loginMW');
+const logoutMW = require('../middleware/auth/logoutMW');
 const regMW = require('../middleware/auth/regMW');
 const userAuthMW = require('../middleware/auth/userAuthMW');
 const addMachineMW = require('../middleware/machines/addMachineMW');
@@ -97,6 +98,7 @@ module.exports = function (app) {
 
     app.get('/logout',
     authMW(objRepo),
+    logoutMW(objRepo),
     redirectMW('/competition'));
     
     app.get('/favicon.ico',(req, res)=>{

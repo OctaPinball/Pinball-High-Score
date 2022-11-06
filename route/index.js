@@ -90,16 +90,17 @@ module.exports = function (app) {
 
 
     //-- LOGIN --
+
+    app.get('/logout',
+    authMW(objRepo),
+    logoutMW(objRepo),
+    redirectMW('/'));
+
     app.use('/',
     inverseAuthMW(objRepo),
     regMW(objRepo),
     loginMW(objRepo),
     renderMW(objRepo, 'index'));
-
-    app.get('/logout',
-    authMW(objRepo),
-    logoutMW(objRepo),
-    redirectMW('/competition'));
     
     app.get('/favicon.ico',(req, res)=>{
         res.status(204);

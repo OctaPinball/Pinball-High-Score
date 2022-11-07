@@ -26,6 +26,7 @@ app.use((err, req, res, next) => {
 app.use(function (req, res, next) {
   res.tpl = {};
   res.tpl.error = [];
+  res.tpl.ok = [];
 
   return next();
 });

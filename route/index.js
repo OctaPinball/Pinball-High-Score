@@ -11,10 +11,15 @@ const getMachinesMW = require('../middleware/machines/getMachinesMW');
 const deleteMachineMW = require('../middleware/machines/deleteMachineMW');
 const editMachineMW = require('../middleware/machines/editMachineMW');
 const deletePlayerMW = require('../middleware/players/deletePlayerMW');
+const getplayersMW = require('../middleware/players/getplayersMW');
 const editPlayerMW = require('../middleware/players/editPlayerMW');
 const addscoreMW = require('../middleware/score/addscoreMW');
 const deletescoreMW = require('../middleware/score/deletescoreMW');
+const getscoreMW = require('../middleware/score/getscoreMW');
+const getscoresMW = require('../middleware/score/getscoresMW');
 const editscoreMW = require('../middleware/score/editscoreMW');
+const competitionMW = require('../middleware/competition/competitionMW');
+const savesearchMW = require('../middleware/competition/savesearchMW');
 const redirectMW = require('../middleware/redirectMW');
 const renderMW = require('../middleware/renderMW');
 
@@ -34,6 +39,11 @@ module.exports = function (app) {
     //-- COMPETITION --
     app.use('/competition',
     authMW(objRepo),
+    getMachinesMW(objRepo),
+    getplayersMW(objRepo),
+    getscoresMW(objRepo),
+    competitionMW(objRepo),
+    savesearchMW(objRepo),
     renderMW(objRepo, 'competition'));
 
     
@@ -77,18 +87,20 @@ module.exports = function (app) {
     
 
     //-- SCORE --   
-    app.use('/score/edit/:machine_id/:player_id',
+    app.use('/scores/edit/:score_id',
     adminAuthMW(objRepo),
     editscoreMW(objRepo),
-    renderMW(objRepo, 'score/edit/:machine_id/:player_id'));
+    getscoreMW (objRepo),
+    renderMW(objRepo, 'editscore'));
 
-    app.use('/score/delete/:machine_id/:player_id',
+    app.use('/scores/delete/:score_id',
     adminAuthMW(objRepo),
     deletescoreMW(objRepo),
-    renderMW(objRepo, 'score/delete/:machine_id/:player_id')); 
+    redirectMW('/competition'));
 
     app.use('/addscore',
     userAuthMW(objRepo),
+    getMachinesMW(objRepo),
     addscoreMW(objRepo),
     renderMW(objRepo, 'addscore'));
 

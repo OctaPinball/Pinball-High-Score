@@ -12,15 +12,6 @@
         <% } %>
            <hr>
            <form method="post">
-            <div class="input-group flex-nowrap">
-                <label class="input-group-text" for="machineselect">Machine</label>
-                <select class="form-select" id="machineselect" name="machineselect" required>
-                  <option selected>Choose...</option>
-                  <% machines.forEach(function(machine){ %>
-                    <option value="<%= machine._id %>"><%= machine.name %></option>
-                <% }); %>
-                </select>
-              </div>
             <div>
                 <div class="input-group flex-nowrap">
                     <input type="number" class="form-control" placeholder="100.000.000" aria-label="Score" aria-describedby="addon-wrapping" id="score" name="score">

@@ -4,8 +4,18 @@
  */
 const requireOption = require('../requireOption');
 
-module.exports = function (objectrepository) {
-    return function (req, res, next) {
-        next();
+module.exports = function(objectrepository) {
+
+   var ScoreModel = requireOption(objectrepository, 'ScoreModel');
+
+    return function(req, res, next) {
+
+        ScoreModel.deleteOne({ _id: req.params.score_id }, (err, score) => {
+           if (err || !score) {
+               return next(err);
+           }
+       });
+
+       return res.redirect('/competition');
     };
-};
+};;

@@ -31,3 +31,6 @@
             </div>
         </div>
    </nav>
+   <% if (typeof error !== 'undefined') { %>
+    <div class="alert alert-danger"><%= error %></div>
+    <% } %>

@@ -7,20 +7,27 @@
     </head>
     <%- include('navigator') -%>
     <hr>
-    <div class="input-group flex-nowrap">
-        <select class="form-select" id="inputGroupSelect01">
-          <option selected>Machine</option>
-          <option value="Twilight Zone">Twilight Zone</option>
-          <option value="Dialed In">Diealed In</option>
-          <option value="Overall">Overall</option>
+    <form class="input-group flex-nowrap" method="post">
+        <select class="form-select" id="machineselect" name="machineselect" required>
+          <% machines.forEach(function(machine){ %>
+            <% if ( selectedmachine !== false && selectedmachine.name === machine.name) { %>
+                <option value="<%= machine._id %>" selected><%= machine.name %></option>
+            <%} else { %>
+                <option value="<%= machine._id %>" ><%= machine.name %></option>
+            <% } %>
+        <% }); %>
         </select>
-        <select class="form-select" id="inputGroupSelect01">
+        <select class="form-select" id="scoreselect" name="scoreselect" required>
           <option selected>Score Type</option>
-          <option value="Machine Score">Machine Score</option>
-          <option value="Points">Points</option>
+          <option value="machinescore">Machine Score</option>
+          <option value="tournamentscore">Points</option>
         </select>
-      </div>
+        <input type="submit" class="btn btn-outline-primary" value="Get Data" />
+      </form>
       <br>
+      <% if (typeof machine !== 'undefined') { %>
+        <h3><%= machine %></h3>
+      <% } %>
     <div>
         <table class="table table-striped">
             <thead>
@@ -30,30 +37,26 @@
                 <td><b>Modify </b></td>
             </tr>
             </thead>
-            <tr>
-                <td>Kiss József</td>
-                <td>476.983.020</td>
-                <td>
-                    <span>
-                        <button type="button" class="btn btn-outline-warning">Edit</button>
-                    </span>
-                    <span>
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Kovács Pista</td>
-                <td>246.300.120</td>
-                <td>
-                    <span>
-                        <button type="button" class="btn btn-outline-warning">Edit</button>
-                    </span>
-                    <span>
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                    </span>
-                </td>
-            </tr>
+            <% if (typeof newscores !== 'undefined') { %>
+                <% newscores.forEach(function(newscore){ %>
+                    <tr>
+                        <td>
+                            <%= newscore.name %>
+                        </td>
+                        <td>
+                            <%= newscore.score %>
+                        </td>
+                        <td>
+                            <span>
+                                <button type="button" class="btn btn-outline-warning"><a href="scores/edit/<%= newscore.score_id %>" class="text-decoration-none">Edit</a></button>
+                            </span>
+                            <span>
+                                <button type="button" class="btn btn-outline-danger"><a href="scores/delete/<%= newscore.score_id %>" class="text-decoration-none">Delete</a></button>
+                            </span>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } %>
         </table>
     </div>
 </body>

@@ -5,12 +5,9 @@ const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
     return function (req, res, next) {
-        if(typeof req !== 'undefined' && typeof req.body !== 'undefined') {
-            console.log('\n ', req.body)
             if (typeof req.session.userid !== 'undefined' || typeof req.session.adminid !== 'undefined') {
                 return res.redirect('/competition');
             }
-        }
         return next();
     };
 };

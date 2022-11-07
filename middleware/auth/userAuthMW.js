@@ -6,7 +6,12 @@ const requireOption = require('../requireOption');
 module.exports = function (objectrepository) {
     return function (req, res, next) {
         if (typeof req.session.userid === 'undefined') {
+            console.log('nem definiált session!!!')
             return res.redirect('/');
+          }
+          else
+          {
+            res.locals.userid = req.session.userid;
           }
         return next();
     };

@@ -9,9 +9,8 @@
     var MachineModel = requireOption(objectrepository, 'MachineModel');
 
      return function(req, res, next) {
-         console.log(req.params.machine_id)
  
-         MachineModel.remove({ _id: req.params.machine_id }, (err, machine) => {
+         MachineModel.deleteOne({ _id: req.params.machine_id }, (err, machine) => {
             if (err || !machine) {
                 return next(err);
             }

@@ -34,7 +34,9 @@
             <tr>
                 <td><b>Name</b></td>
                 <td><b>Score </b></td>
+                <% if (typeof adminid !== 'undefined') { %>
                 <td><b>Modify </b></td>
+                <% } %>
             </tr>
             </thead>
             <% if (typeof newscores !== 'undefined') { %>
@@ -46,14 +48,16 @@
                         <td>
                             <%= newscore.score %>
                         </td>
-                        <td>
-                            <span>
-                                <button type="button" class="btn btn-outline-warning"><a href="scores/edit/<%= newscore.score_id %>" class="text-decoration-none">Edit</a></button>
-                            </span>
-                            <span>
-                                <button type="button" class="btn btn-outline-danger"><a href="scores/delete/<%= newscore.score_id %>" class="text-decoration-none">Delete</a></button>
-                            </span>
-                        </td>
+                        <% if (typeof adminid !== 'undefined') { %>
+                            <td>
+                                <span>
+                                    <button type="button" class="btn btn-outline-warning"><a href="scores/edit/<%= newscore.score_id %>" class="text-decoration-none">Edit</a></button>
+                                </span>
+                                <span>
+                                    <button type="button" class="btn btn-outline-danger"><a href="scores/delete/<%= newscore.score_id %>" class="text-decoration-none">Delete</a></button>
+                                </span>
+                            </td>
+                            <% } %>
                     </tr>
                 <% }); %>
             <% } %>

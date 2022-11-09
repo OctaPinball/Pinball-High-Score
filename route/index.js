@@ -13,6 +13,7 @@ const editMachineMW = require('../middleware/machines/editMachineMW');
 const deletePlayerMW = require('../middleware/players/deletePlayerMW');
 const getplayersMW = require('../middleware/players/getplayersMW');
 const getplayerMW = require('../middleware/players/getplayerMW');
+const dateadjustMW = require('../middleware/players/dateadjustMW');
 const editPlayerMW = require('../middleware/players/editPlayerMW');
 const addscoreMW = require('../middleware/score/addscoreMW');
 const deletescoreMW = require('../middleware/score/deletescoreMW');
@@ -86,6 +87,7 @@ module.exports = function (app) {
     app.use('/players',
     adminAuthMW(objRepo),
     getplayersMW(objRepo),
+    dateadjustMW(objRepo),
     renderMW(objRepo, 'players'));
     
 
@@ -109,7 +111,6 @@ module.exports = function (app) {
 
 
     //-- LOGIN --
-
     app.get('/logout',
     authMW(objRepo),
     logoutMW(objRepo),

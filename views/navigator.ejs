@@ -11,12 +11,12 @@
                     <% if (typeof adminid !== 'undefined') { %>
                         <li class="nav-item"><a class="nav-link" aria-current="page"  href="/machines">Machines</a></li>
                         <li class="nav-item"><a class="nav-link" aria-current="page"  href="/players">Players</a></li>
-                        <li class="nav-item"><a class="nav-link" aria-current="page"  href="competition_admin.ejs">Competition</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page"  href="/competition">Competition</a></li>
                     <% } %>
 
                     <% if (typeof userid !== 'undefined') { %>
                     <li class="nav-item"><a class="nav-link" aria-current="page"  href="/addscore">Add Score</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page"  href="competition_player.ejs">Competition</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page"  href="/competition">Competition</a></li>
                     <% } %>
 
                     <% if (typeof userid !== 'undefined' || typeof adminid !== 'undefined') { %>

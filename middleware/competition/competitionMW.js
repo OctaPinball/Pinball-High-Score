@@ -40,12 +40,12 @@ module.exports = function (objectrepository) {
             return next();
         }
 
-
         var newscores = [];
         for(var i = 0; i < res.locals.scores.length; i++)
         {
-            if(res.locals.scores[i]._machine == machineselect)
+            if(res.locals.scores[i]._machine.equals(machineselect))
             {
+                console.log("itt\n");
                 for(var j = 0; j < res.locals.players.length; j++)
                 {
                     if(res.locals.players[j]._id.equals(res.locals.scores[i]._player))

@@ -11,6 +11,6 @@ module.exports = function (objectrepository) {
             }
             res.locals.scores = scores;
             return next();
-        });
+        }).sort({score: -1});
     };
 };

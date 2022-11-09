@@ -11,6 +11,6 @@ module.exports = function (objectrepository) {
             }
             res.locals.machines = machines;
             return next();
-        });
+        }).sort({name: 1});
     };
 };

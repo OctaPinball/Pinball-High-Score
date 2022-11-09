@@ -22,6 +22,7 @@ const getscoresMW = require('../middleware/score/getscoresMW');
 const editscoreMW = require('../middleware/score/editscoreMW');
 const competitionMW = require('../middleware/competition/competitionMW');
 const savesearchMW = require('../middleware/competition/savesearchMW');
+const savesearchfrommachinesMW = require('../middleware/competition/savesearchfrommachinesMW');
 const redirectMW = require('../middleware/redirectMW');
 const renderMW = require('../middleware/renderMW');
 
@@ -39,6 +40,12 @@ module.exports = function (app) {
       
     
     //-- COMPETITION --
+
+    app.use('/competition/:machine_id',
+    authMW(objRepo),
+    savesearchfrommachinesMW(objRepo),
+    redirectMW('/competition'));
+
     app.use('/competition',
     authMW(objRepo),
     getMachinesMW(objRepo),

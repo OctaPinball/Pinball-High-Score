@@ -50,8 +50,17 @@ module.exports = function (objectrepository) {
         newUser.password = req.body.reg_password;
         newUser.ifpa_id = req.body.reg_ifpaid;
         newUser.birthdate = req.body.reg_birthdate;
+        if(typeof req.body.adminrole !== 'undefined' && req.body.adminrole == 'on')
+            newUser.admin_role = true;
+        else
+            newUser.admin_role = false;
         newUser.save(function (err) {
 
+        req.session.userid = newUser._id;
+
+        if(newUser.admin_role == true)
+            req.session.adminid = newUser._id;
+        else
             req.session.userid = newUser._id;
             //redirect to /competition
             return res.redirect('/competition');

@@ -12,6 +12,7 @@ const deleteMachineMW = require('../middleware/machines/deleteMachineMW');
 const editMachineMW = require('../middleware/machines/editMachineMW');
 const deletePlayerMW = require('../middleware/players/deletePlayerMW');
 const getplayersMW = require('../middleware/players/getplayersMW');
+const getplayerMW = require('../middleware/players/getplayerMW');
 const editPlayerMW = require('../middleware/players/editPlayerMW');
 const addscoreMW = require('../middleware/score/addscoreMW');
 const deletescoreMW = require('../middleware/score/deletescoreMW');
@@ -71,18 +72,20 @@ module.exports = function (app) {
     
     
     //-- PLAYERS --
-    app.use('/player/edit/:machine_id',
+    app.use('/player/edit/:player_id',
     adminAuthMW(objRepo),
     editPlayerMW(objRepo),
-    renderMW(objRepo, 'player/edit/:machine_id'));
+    getplayerMW(objRepo),
+    renderMW(objRepo, 'editplayer'));
 
-    app.use('/player/delete/:machine_id',
+    app.use('/player/delete/:player_id',
     adminAuthMW(objRepo),
     deletePlayerMW(objRepo),
-    renderMW(objRepo, 'player/delete/:machine_id'));    
+    redirectMW('/players'));   
 
     app.use('/players',
     adminAuthMW(objRepo),
+    getplayersMW(objRepo),
     renderMW(objRepo, 'players'));
     
 

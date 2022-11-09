@@ -48,7 +48,7 @@ module.exports = function (objectrepository) {
         newUser.name = req.body.reg_name;
         newUser.username = req.body.reg_username;
         newUser.password = req.body.reg_password;
-        newUser.ifpaid = req.body.reg_ifpaid;
+        newUser.ifpa_id = req.body.reg_ifpaid;
         newUser.birthdate = req.body.reg_birthdate;
         newUser.save(function (err) {
 

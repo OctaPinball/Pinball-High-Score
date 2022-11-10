@@ -51,10 +51,10 @@
                         <% if (typeof adminid !== 'undefined') { %>
                             <td align="center">
                                 <span>
-                                    <button type="button" class="btn btn-outline-warning"><a href="scores/edit/<%= newscore.score_id %>" class="text-decoration-none">Edit</a></button>
+                                    <a type="button" class="btn btn-outline-warning" href="scores/edit/<%= newscore.score_id %>">Edit</a>
                                 </span>
                                 <span>
-                                    <button type="button" class="btn btn-outline-danger"><a href="scores/delete/<%= newscore.score_id %>" class="text-decoration-none">Delete</a></button>
+                                    <a type="button" class="btn btn-outline-danger" href="scores/delete/<%= newscore.score_id %>">Delete</a>
                                 </span>
                             </td>
                             <% } %>

@@ -8,7 +8,7 @@
     <%- include('navigator') -%>
        <hr>
     <div>
-        <button type="button" class="btn btn-outline-primary"><a href="/machines/new" class="text-decoration-none">Add Machine</a></button>
+        <a type="button" class="btn btn-outline-primary" href="/machines/new">Add Machine</a>
     </div>
     <div>
         <table class="table table-striped">
@@ -34,13 +34,13 @@
                     </td>
                     <td>
                         <span>
-                            <button type="button" class="btn btn-outline-info"><a href="/competition/<%= machine._id %>" class="text-decoration-none">Scores</a></button>
+                            <a type="button" class="btn btn-outline-info" href="/competition/<%= machine._id %>">Scores</a>
                         </span>
                         <span>
-                            <button type="button" class="btn btn-outline-warning"><a href="machines/edit/<%= machine._id %>" class="text-decoration-none">Edit</a></button>
+                            <a type="button" class="btn btn-outline-warning" href="machines/edit/<%= machine._id %>">Edit</a>
                         </span>
                         <span>
-                            <button type="button" class="btn btn-outline-danger"><a href="machines/delete/<%= machine._id %>" class="text-decoration-none">Delete</a></button>
+                            <a  type="button" class="btn btn-outline-danger" href="machines/delete/<%= machine._id %>">Delete</a>
                         </span>
                     </td>
                 </tr>

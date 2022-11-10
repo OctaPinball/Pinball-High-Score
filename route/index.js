@@ -14,13 +14,14 @@ const editMachineMW = require('../middleware/machines/editMachineMW');
 const deletePlayerMW = require('../middleware/players/deletePlayerMW');
 const getplayersMW = require('../middleware/players/getplayersMW');
 const getplayerMW = require('../middleware/players/getplayerMW');
-const dateadjustMW = require('../middleware/players/dateadjustMW');
+const dateadjustMW = require('../middleware/competition/dateadjustMW');
 const editPlayerMW = require('../middleware/players/editPlayerMW');
 const addscoreMW = require('../middleware/score/addscoreMW');
 const deletescoreMW = require('../middleware/score/deletescoreMW');
 const getscoreMW = require('../middleware/score/getscoreMW');
 const getscoresMW = require('../middleware/score/getscoresMW');
 const editscoreMW = require('../middleware/score/editscoreMW');
+const scoreadjust = require('../middleware/competition/scoreadjust');
 const competitionMW = require('../middleware/competition/competitionMW');
 const savesearchMW = require('../middleware/competition/savesearchMW');
 const savesearchfrommachinesMW = require('../middleware/competition/savesearchfrommachinesMW');
@@ -41,7 +42,6 @@ module.exports = function (app) {
       
     
     //-- COMPETITION --
-
     app.use('/competition/:machine_id',
     sessionIDloaderMW(objRepo),
     savesearchfrommachinesMW(objRepo),
@@ -53,6 +53,7 @@ module.exports = function (app) {
     getplayersMW(objRepo),
     getscoresMW(objRepo),
     competitionMW(objRepo),
+    scoreadjust(objRepo),
     savesearchMW(objRepo),
     renderMW(objRepo, 'competition'));
 

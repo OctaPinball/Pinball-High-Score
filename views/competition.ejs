@@ -32,10 +32,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <td><b>Name</b></td>
-                <td><b>Score </b></td>
+                <td><p><b>Name</b></p></td>
+                <td><p align="right"><b>Score </b></p></td>
                 <% if (typeof adminid !== 'undefined') { %>
-                <td><b>Modify </b></td>
+                <td><p align="center"><b>Modify </b></p></td>
                 <% } %>
             </tr>
             </thead>
@@ -46,10 +46,10 @@
                             <%= newscore.name %>
                         </td>
                         <td>
-                            <%= newscore.score %>
+                            <p align="right"><%= newscore.adjscore %></p>
                         </td>
                         <% if (typeof adminid !== 'undefined') { %>
-                            <td>
+                            <td align="center">
                                 <span>
                                     <button type="button" class="btn btn-outline-warning"><a href="scores/edit/<%= newscore.score_id %>" class="text-decoration-none">Edit</a></button>
                                 </span>

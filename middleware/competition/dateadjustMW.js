@@ -21,9 +21,7 @@ module.exports = function (objectrepository) {
         {
             for(var i = 0; i < res.locals.players.length; i++)
             {
-                console.log('sdkfgbhdfhmklgb');
                 res.locals.players[i].adjbirthdate = formatDate(res.locals.players[i].birthdate);
-                console.log(res.locals.players[i].adjbirthdate);
             }
         }
         return next();

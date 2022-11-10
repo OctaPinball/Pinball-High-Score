@@ -6,6 +6,13 @@ module.exports = function (objectrepository) {
             res.locals.userid = req.session.userid;
             res.locals.adminid = req.session.adminid;
           }
+
+          if(typeof req.session.errortext !== 'undefined')
+          {
+            res.locals.error = req.session.errortext;
+            req.session.errortext = undefined;
+            req.session.save();
+          }
         return next();
     };
 };

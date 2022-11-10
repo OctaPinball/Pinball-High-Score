@@ -11,6 +11,6 @@ module.exports = function (objectrepository) {
             }
             res.locals.players = players;
             return next();
-        });
+        }).sort({admin_role: -1, name: 1});
     };
 };

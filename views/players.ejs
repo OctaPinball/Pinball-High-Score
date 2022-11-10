@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            .spoiler{ 
+            color: rgb(88, 88, 88); 
+            background-color:rgb(88, 88, 88);
+            }
+
+
+            .spoiler:hover { 
+            color: rgb(0, 0, 0); 
+            background-color: transparent; 
+            }
+        </style>
         <meta charset="utf-8">
         <title>Pinball High Score - Players</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -28,7 +40,12 @@
                         <%= player.username %>
                     </td>
                     <td>
-                        <%= player.password %>
+                        <% if (player.admin_role == false || (typeof adminid !== 'undefined' && adminid == player._id)) { %>
+                            <span class="spoiler"><%= player.password %></span>
+                        <% } %>
+                        <% if (player.admin_role == true && typeof adminid !== 'undefined' && adminid != player._id) { %>
+                            <p class="text-warning"><b>Other admins password is hidden!</b></p>
+                        <% } %>
                     </td>
                     <td>
                         <%= player.adjbirthdate %>
@@ -37,12 +54,17 @@
                         #<%= player.ifpa_id %>
                     </td>
                     <td>
-                        <span>
-                            <a type="button" class="btn btn-outline-warning" href="player/edit/<%= player._id %>">Edit</a>
-                        </span>
-                        <span>
-                            <a type="button" class="btn btn-outline-danger" href="player/delete/<%= player._id %>">Delete</a>
-                        </span>
+                        <% if (player.admin_role == false || (typeof adminid !== 'undefined' && adminid == player._id)) { %>
+                            <span>
+                                <a type="button" class="btn btn-outline-warning" href="player/edit/<%= player._id %>">Edit</a>
+                            </span>
+                            <span>
+                                <a type="button" class="btn btn-outline-danger" href="player/delete/<%= player._id %>">Delete</a>
+                            </span>
+                        <% } %>
+                        <% if (player.admin_role == true && typeof adminid !== 'undefined' && adminid != player._id) { %>
+                            <p class="text-warning"><b>Other admins cannot be modified or deleted!</b></p>
+                        <% } %>
                     </td>
                 </tr>
             <% }); %>

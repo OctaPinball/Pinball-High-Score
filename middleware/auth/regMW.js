@@ -56,12 +56,13 @@ module.exports = function (objectrepository) {
             newUser.admin_role = false;
         newUser.save(function (err) {
 
-        req.session.userid = newUser._id;
-
         if(newUser.admin_role == true)
             req.session.adminid = newUser._id;
         else
             req.session.userid = newUser._id;
+
+
+            req.session.save();
             //redirect to /competition
             return res.redirect('/competition');
         });

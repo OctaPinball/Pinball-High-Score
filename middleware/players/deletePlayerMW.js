@@ -9,13 +9,36 @@
     var PlayerModel = requireOption(objectrepository, 'PlayerModel');
  
      return function(req, res, next) {
- 
-        PlayerModel.deleteOne({ _id: req.params.player_id }, (err, score) => {
-            if (err || !score) {
+
+        var logout = false;
+        if(req.params.player_id === req.session.adminid)
+        {
+            logout = true;
+        }
+
+        PlayerModel.findOne({_id: req.params.player_id}, (err, player) => {
+            if(err){
                 return next(err);
             }
+            
+            if(player.admin_role === true && req.params.player_id !== req.session.adminid)
+            {
+                req.session.errortext = 'You cannot delete other admins!';
+                req.session.save();
+            }
+            else
+            {
+                PlayerModel.deleteOne({ _id: req.params.player_id }, (err, score) => {
+                    if (err || !score) {
+                        return next(err);
+                    }
+                });
+            }
         });
- 
-        return res.redirect('/players');
+
+        if(logout)
+            return res.redirect('/logout');
+        else
+            return res.redirect('/players');
      };
  };;

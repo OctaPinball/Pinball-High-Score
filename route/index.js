@@ -5,7 +5,7 @@ const loginMW = require('../middleware/auth/loginMW');
 const logoutMW = require('../middleware/auth/logoutMW');
 const regMW = require('../middleware/auth/regMW');
 const userAuthMW = require('../middleware/auth/userAuthMW');
-const sessionIDloaderMW = require('../middleware/auth/sessionIDloaderMW');
+const sessionloaderMW = require('../middleware/auth/sessionloaderMW');
 const addMachineMW = require('../middleware/machines/addMachineMW');
 const getMachineMW = require('../middleware/machines/getMachineMW');
 const getMachinesMW = require('../middleware/machines/getMachinesMW');
@@ -43,12 +43,12 @@ module.exports = function (app) {
     
     //-- COMPETITION --
     app.use('/competition/:machine_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     savesearchfrommachinesMW(objRepo),
     redirectMW('/competition'));
 
     app.use('/competition',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     getMachinesMW(objRepo),
     getplayersMW(objRepo),
     getscoresMW(objRepo),
@@ -60,26 +60,26 @@ module.exports = function (app) {
     
     //-- MACHINES --
     app.use('/machines/new',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     addMachineMW(objRepo),
     renderMW(objRepo, 'addmachine'));
 
     app.use('/machines/edit/:machine_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     editMachineMW(objRepo),
     getMachineMW(objRepo),
     renderMW(objRepo, 'editmachine'));
 
     app.use('/machines/delete/:machine_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     deleteMachineMW(objRepo),
     redirectMW('/machines'));
 
     app.use('/machines',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     getMachinesMW(objRepo),
     renderMW(objRepo, 'machines'));
@@ -87,20 +87,20 @@ module.exports = function (app) {
     
     //-- PLAYERS --
     app.use('/player/edit/:player_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     editPlayerMW(objRepo),
     getplayerMW(objRepo),
     renderMW(objRepo, 'editplayer'));
 
     app.use('/player/delete/:player_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     deletePlayerMW(objRepo),
     redirectMW('/players'));   
 
     app.use('/players',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     getplayersMW(objRepo),
     dateadjustMW(objRepo),
@@ -109,20 +109,20 @@ module.exports = function (app) {
 
     //-- SCORE --   
     app.use('/scores/edit/:score_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     editscoreMW(objRepo),
     getscoreMW (objRepo),
     renderMW(objRepo, 'editscore'));
 
     app.use('/scores/delete/:score_id',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     adminAuthMW(objRepo),
     deletescoreMW(objRepo),
     redirectMW('/competition'));
 
     app.use('/addscore',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     userAuthMW(objRepo),
     getMachinesMW(objRepo),
     addscoreMW(objRepo),
@@ -131,13 +131,13 @@ module.exports = function (app) {
 
     //-- LOGIN --
     app.get('/logout',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     authMW(objRepo),
     logoutMW(objRepo),
     redirectMW('/'));
 
     app.use('/',
-    sessionIDloaderMW(objRepo),
+    sessionloaderMW(objRepo),
     inverseAuthMW(objRepo),
     regMW(objRepo),
     loginMW(objRepo),

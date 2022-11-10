@@ -28,6 +28,13 @@
              res.locals.error = 'This player does not exist!';
          return next();
          }
+
+         if(result.admin_role === true && req.params.player_id !== req.session.adminid)
+         {
+            req.session.errortext = 'You cannot modify other admins!';
+            req.session.save();
+            return res.redirect('/players');
+         }
  
          //create machine
          result.username = req.body.username;

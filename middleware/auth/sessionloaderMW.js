@@ -13,6 +13,13 @@ module.exports = function (objectrepository) {
             req.session.errortext = undefined;
             req.session.save();
           }
+
+          if(typeof req.session.success !== 'undefined')
+          {
+            res.locals.success = req.session.success;
+            req.session.success = undefined;
+            req.session.save();
+          }
         return next();
     };
 };

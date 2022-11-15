@@ -37,14 +37,14 @@ module.exports = function (objectrepository) {
                     }
                     
                     //create machine
-                    res.locals.ok = 'Score successfully added!';
                     var newScore = new ScoreModel();
                     newScore.score = req.body.score;
                     newScore._player = player._id;
                     newScore._machine = machine._id;
                     newScore.save(function (err) {
                         //redirect to /machines
-                        res.locals.ok = 'Score successfully added!';
+                        req.session.success = 'Score successfully added!';
+                        req.session.save();
                         return res.redirect('/addscore');
                     });
         

@@ -7,6 +7,7 @@
  module.exports = function(objectrepository) {
 
     var MachineModel = requireOption(objectrepository, 'MachineModel');
+    var ScoreModel = requireOption(objectrepository, 'ScoreModel');
 
      return function(req, res, next) {
  
@@ -14,8 +15,21 @@
             if (err || !machine) {
                 return next(err);
             }
+            else
+            {
+                ScoreModel.deleteMany({_machine: req.params.machine_id}, (err, result) => {
+                    if (err || !result) {
+                        return next(err);
+                    }
+                    else
+                    {
+                        req.session.success = 'Machine successfully deleted!';
+                        req.session.save();
+                    }
+                })
+            }
         });
- 
+        
         return res.redirect('/machines');
      };
  };;

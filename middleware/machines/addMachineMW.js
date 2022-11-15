@@ -37,6 +37,8 @@ module.exports = function (objectrepository) {
         newMachine.save(function (err) {
 
             //redirect to /machines
+            req.session.success = 'Machine successfully added!';
+            req.session.save();
             return res.redirect('/machines');
         });
     });

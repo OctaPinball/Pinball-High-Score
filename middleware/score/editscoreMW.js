@@ -31,6 +31,8 @@
          result.score = req.body.score;
          result.save(function (err) {
  
+             req.session.success = 'Score successfully updated!';
+             req.session.save();
              //redirect to /machines
              return res.redirect('/competition');
          });

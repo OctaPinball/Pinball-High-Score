@@ -43,7 +43,9 @@
          result.birthdate = req.body.birthdate;
          result.ifpa_id = req.body.ifpaid;
          result.save(function (err) {
- 
+
+             req.session.success = 'Player successfully updated!';
+             req.session.save();
              //redirect to /machines
              return res.redirect('/players');
          });

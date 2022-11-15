@@ -37,13 +37,19 @@ module.exports = function (objectrepository) {
         return next();
         }
 
+        if ((err) || (result !== null)) {
+            res.locals.error = 'This machine is already exist!';
+        return next();
+        }
+
         //create machine
         result.name = req.body.name;
         result.manufacturer = req.body.manufacturer;
         result.year = req.body.prodyear;
         result.save(function (err) {
 
-            //redirect to /machines
+            req.session.success = 'Machine successfully updated!';
+            req.session.save();
             return res.redirect('/machines');
         });
     });

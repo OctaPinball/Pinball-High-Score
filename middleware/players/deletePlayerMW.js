@@ -7,6 +7,7 @@
  module.exports = function(objectrepository) {
  
     var PlayerModel = requireOption(objectrepository, 'PlayerModel');
+    var ScoreModel = requireOption(objectrepository, 'ScoreModel');
  
      return function(req, res, next) {
 
@@ -31,6 +32,20 @@
                 PlayerModel.deleteOne({ _id: req.params.player_id }, (err, score) => {
                     if (err || !score) {
                         return next(err);
+                    }
+                    else
+                    {
+                        ScoreModel.deleteMany({_player: req.params.player_id}, (err, result) => {
+                            if (err || !result) {
+                                return next(err);
+                            }
+                            else
+                            {
+                                console.log('ezegyjóhír')
+                                req.session.success = 'Player successfully deleted!';
+                                req.session.save();
+                            }
+                        })
                     }
                 });
             }

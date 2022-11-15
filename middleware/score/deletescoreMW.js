@@ -14,6 +14,11 @@ module.exports = function(objectrepository) {
            if (err || !score) {
                return next(err);
            }
+           else
+           {
+            req.session.success = 'Score successfully deleted!';
+            req.session.save();
+           }
        });
 
        return res.redirect('/competition');

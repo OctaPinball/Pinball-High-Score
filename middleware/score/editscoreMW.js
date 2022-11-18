@@ -19,7 +19,7 @@
          return next();
      }
  
-     //lets find the machine
+     //lets find the score
      ScoreModel.findOne({_id: req.params.score_id}, (err, result) => {
  
          if ((err) || (result === null)) {
@@ -27,13 +27,13 @@
          return next();
          }
  
-         //create machine
+         //create score
          result.score = req.body.score;
          result.save(function (err) {
  
              req.session.success = 'Score successfully updated!';
              req.session.save();
-             //redirect to /machines
+             //redirect to /competition
              return res.redirect('/competition');
          });
      });

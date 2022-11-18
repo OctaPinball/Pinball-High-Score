@@ -28,7 +28,7 @@ module.exports = function (objectrepository) {
       return next();
     }
 
-    //get user
+    //get player
     PlayerModel.findOne({
         username: req.body.login_username
     }, function (err, result) {

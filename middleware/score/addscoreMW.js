@@ -36,13 +36,12 @@ module.exports = function (objectrepository) {
                     return next();
                     }
                     
-                    //create machine
+                    //create score
                     var newScore = new ScoreModel();
                     newScore.score = req.body.score;
                     newScore._player = player._id;
                     newScore._machine = machine._id;
                     newScore.save(function (err) {
-                        //redirect to /machines
                         req.session.success = 'Score successfully added!';
                         req.session.save();
                         return res.redirect('/addscore');

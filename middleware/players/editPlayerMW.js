@@ -21,7 +21,7 @@
          return next();
      }
  
-     //lets find the machine
+     //lets find the player
      PlayerModel.findOne({_id: req.params.player_id}, (err, result) => {
  
          if ((err) || (result === null)) {
@@ -36,7 +36,7 @@
             return res.redirect('/players');
          }
  
-         //create machine
+         //create player
          result.username = req.body.username;
          result.password = req.body.password;
          result.name = req.body.name;
@@ -46,7 +46,7 @@
 
              req.session.success = 'Player successfully updated!';
              req.session.save();
-             //redirect to /machines
+             //redirect to /players
              return res.redirect('/players');
          });
      });

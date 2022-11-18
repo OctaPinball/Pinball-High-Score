@@ -28,7 +28,7 @@ module.exports = function (objectrepository) {
         return next();
     }
 
-    //lets find the user
+    //lets find the player
     PlayerModel.findOne({
         username: req.body.reg_username
     }, function (err, result) {
@@ -43,7 +43,7 @@ module.exports = function (objectrepository) {
         return next();
         }
 
-        //create user
+        //create player
         var newUser = new PlayerModel();
         newUser.name = req.body.reg_name;
         newUser.username = req.body.reg_username;
@@ -67,6 +67,5 @@ module.exports = function (objectrepository) {
             return res.redirect('/competition');
         });
     });
-        //next();
     };
 };

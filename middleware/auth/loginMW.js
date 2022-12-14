@@ -25,6 +25,7 @@ module.exports = function (objectrepository) {
     //not enough input
     if ((typeof req.body === 'undefined') || (typeof req.body.login_username === 'undefined') ||
       (typeof req.body.login_password === 'undefined')){
+        res.locals.error = 'Not enough input!';
       return next();
     }
 
@@ -34,7 +35,7 @@ module.exports = function (objectrepository) {
     }, function (err, result) {
       if ((err) || (!result)) {
         res.locals.error = 'This username does not exist!';
-        return next();
+        return next(err);
       }
 
       //check password
